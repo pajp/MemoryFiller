@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'MemoryFiller' target in the 'MemoryFiller' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

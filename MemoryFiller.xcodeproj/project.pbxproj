@@ -1,0 +1,311 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3A4A6B2717952E2200C56DAB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4A6B2617952E2200C56DAB /* Cocoa.framework */; };
+		3A4A6B3117952E2200C56DAB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A4A6B2F17952E2200C56DAB /* InfoPlist.strings */; };
+		3A4A6B3317952E2200C56DAB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A6B3217952E2200C56DAB /* main.m */; };
+		3A4A6B3717952E2200C56DAB /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4A6B3517952E2200C56DAB /* Credits.rtf */; };
+		3A4A6B3A17952E2200C56DAB /* DLLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A6B3917952E2200C56DAB /* DLLAppDelegate.m */; };
+		3A4A6B3D17952E2200C56DAB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A4A6B3B17952E2200C56DAB /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3A4A6B2317952E2200C56DAB /* MemoryFiller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryFiller.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A4A6B2617952E2200C56DAB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		3A4A6B2917952E2200C56DAB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		3A4A6B2A17952E2200C56DAB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		3A4A6B2B17952E2200C56DAB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3A4A6B2E17952E2200C56DAB /* MemoryFiller-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MemoryFiller-Info.plist"; sourceTree = "<group>"; };
+		3A4A6B3017952E2200C56DAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3A4A6B3217952E2200C56DAB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3A4A6B3417952E2200C56DAB /* MemoryFiller-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MemoryFiller-Prefix.pch"; sourceTree = "<group>"; };
+		3A4A6B3617952E2200C56DAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		3A4A6B3817952E2200C56DAB /* DLLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLLAppDelegate.h; sourceTree = "<group>"; };
+		3A4A6B3917952E2200C56DAB /* DLLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLLAppDelegate.m; sourceTree = "<group>"; };
+		3A4A6B3C17952E2200C56DAB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3A4A6B2017952E2200C56DAB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A4A6B2717952E2200C56DAB /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3A4A6B1A17952E2200C56DAB = {
+			isa = PBXGroup;
+			children = (
+				3A4A6B2C17952E2200C56DAB /* MemoryFiller */,
+				3A4A6B2517952E2200C56DAB /* Frameworks */,
+				3A4A6B2417952E2200C56DAB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3A4A6B2417952E2200C56DAB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3A4A6B2317952E2200C56DAB /* MemoryFiller.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3A4A6B2517952E2200C56DAB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3A4A6B2617952E2200C56DAB /* Cocoa.framework */,
+				3A4A6B2817952E2200C56DAB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3A4A6B2817952E2200C56DAB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3A4A6B2917952E2200C56DAB /* AppKit.framework */,
+				3A4A6B2A17952E2200C56DAB /* CoreData.framework */,
+				3A4A6B2B17952E2200C56DAB /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		3A4A6B2C17952E2200C56DAB /* MemoryFiller */ = {
+			isa = PBXGroup;
+			children = (
+				3A4A6B3817952E2200C56DAB /* DLLAppDelegate.h */,
+				3A4A6B3917952E2200C56DAB /* DLLAppDelegate.m */,
+				3A4A6B3B17952E2200C56DAB /* MainMenu.xib */,
+				3A4A6B2D17952E2200C56DAB /* Supporting Files */,
+			);
+			path = MemoryFiller;
+			sourceTree = "<group>";
+		};
+		3A4A6B2D17952E2200C56DAB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3A4A6B2E17952E2200C56DAB /* MemoryFiller-Info.plist */,
+				3A4A6B2F17952E2200C56DAB /* InfoPlist.strings */,
+				3A4A6B3217952E2200C56DAB /* main.m */,
+				3A4A6B3417952E2200C56DAB /* MemoryFiller-Prefix.pch */,
+				3A4A6B3517952E2200C56DAB /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3A4A6B2217952E2200C56DAB /* MemoryFiller */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3A4A6B4017952E2200C56DAB /* Build configuration list for PBXNativeTarget "MemoryFiller" */;
+			buildPhases = (
+				3A4A6B1F17952E2200C56DAB /* Sources */,
+				3A4A6B2017952E2200C56DAB /* Frameworks */,
+				3A4A6B2117952E2200C56DAB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MemoryFiller;
+			productName = MemoryFiller;
+			productReference = 3A4A6B2317952E2200C56DAB /* MemoryFiller.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3A4A6B1B17952E2200C56DAB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = DLL;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Rasmus Sten";
+			};
+			buildConfigurationList = 3A4A6B1E17952E2200C56DAB /* Build configuration list for PBXProject "MemoryFiller" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3A4A6B1A17952E2200C56DAB;
+			productRefGroup = 3A4A6B2417952E2200C56DAB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3A4A6B2217952E2200C56DAB /* MemoryFiller */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3A4A6B2117952E2200C56DAB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A4A6B3117952E2200C56DAB /* InfoPlist.strings in Resources */,
+				3A4A6B3717952E2200C56DAB /* Credits.rtf in Resources */,
+				3A4A6B3D17952E2200C56DAB /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3A4A6B1F17952E2200C56DAB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A4A6B3317952E2200C56DAB /* main.m in Sources */,
+				3A4A6B3A17952E2200C56DAB /* DLLAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3A4A6B2F17952E2200C56DAB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A4A6B3017952E2200C56DAB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3A4A6B3517952E2200C56DAB /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A4A6B3617952E2200C56DAB /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		3A4A6B3B17952E2200C56DAB /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A4A6B3C17952E2200C56DAB /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3A4A6B3E17952E2200C56DAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		3A4A6B3F17952E2200C56DAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		3A4A6B4117952E2200C56DAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MemoryFiller/MemoryFiller-Prefix.pch";
+				INFOPLIST_FILE = "MemoryFiller/MemoryFiller-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3A4A6B4217952E2200C56DAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MemoryFiller/MemoryFiller-Prefix.pch";
+				INFOPLIST_FILE = "MemoryFiller/MemoryFiller-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3A4A6B1E17952E2200C56DAB /* Build configuration list for PBXProject "MemoryFiller" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A4A6B3E17952E2200C56DAB /* Debug */,
+				3A4A6B3F17952E2200C56DAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3A4A6B4017952E2200C56DAB /* Build configuration list for PBXNativeTarget "MemoryFiller" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A4A6B4117952E2200C56DAB /* Debug */,
+				3A4A6B4217952E2200C56DAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3A4A6B1B17952E2200C56DAB /* Project object */;
+}
