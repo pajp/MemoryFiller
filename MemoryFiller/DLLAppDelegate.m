@@ -12,12 +12,15 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+    self.mallocs = [[NSPointerArray alloc] initWithOptions:NSPointerFunctionsOpaqueMemory];
 }
 - (IBAction)freeAllButtonPressed:(id)sender {
+    NSLog(@"mallocs size before free: %ld", (unsigned long)[self.mallocs count]);
     for (int i=0; i < [self.mallocs count]; i++)
     {
-        free([self.mallocs pointerAtIndex:i]);
+        void* buffer = [self.mallocs pointerAtIndex:i];
+        NSLog(@"Freeing memory at location %p", buffer);
+        free(buffer);
         [self.mallocs replacePointerAtIndex:i withPointer:NULL];
     }
     [self.mallocs compact];
