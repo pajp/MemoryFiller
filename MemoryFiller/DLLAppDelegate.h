@@ -11,5 +11,13 @@
 @interface DLLAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+- (IBAction)buttonPressed:(id)sender;
+@property (weak) IBOutlet NSProgressIndicator *progressIndicator;
+@property (weak) IBOutlet NSTextFieldCell *sizeTextField;
+@property (weak) IBOutlet NSTextField *bytesWrittenLabel;
+@property (weak) IBOutlet NSButton *startButton;
+@property (weak) IBOutlet NSTextField *totalBytesLabel;
+
+@property (strong) NSPointerArray *mallocs;
 
 @end
