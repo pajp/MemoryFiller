@@ -59,7 +59,7 @@
             } else {
                 blocksize = target - written;
             }
-            ssize_t c = read(urandom, buffer, blocksize);
+            ssize_t c = read(urandom, buffer+written, blocksize);
             //NSLog(@"Wrote %zd bytes", written);
             if (c == -1) {
                 dispatch_async(dispatch_get_main_queue(), ^{
