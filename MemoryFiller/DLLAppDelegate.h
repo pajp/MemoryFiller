@@ -17,7 +17,8 @@
 @property (weak) IBOutlet NSTextField *bytesWrittenLabel;
 @property (weak) IBOutlet NSButton *startButton;
 @property (weak) IBOutlet NSTextField *totalBytesLabel;
+@property (weak) IBOutlet NSTextField *chunkSizeTextField;
 
 @property (strong) NSPointerArray *mallocs;
-
+@property ssize_t totalBytesWritten;
 @end

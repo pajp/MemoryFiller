@@ -13,6 +13,10 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.mallocs = [[NSPointerArray alloc] initWithOptions:NSPointerFunctionsOpaqueMemory];
+    self.chunkSizeTextField.stringValue = @"1024";
+    self.sizeTextField.stringValue = @"100";
+    self.totalBytesWritten = 0;
+    
 }
 - (IBAction)freeAllButtonPressed:(id)sender {
     NSLog(@"mallocs size before free: %ld", (unsigned long)[self.mallocs count]);
@@ -27,11 +31,16 @@
     NSLog(@"mallocs size after compact: %ld", (unsigned long)[self.mallocs count]);
     self.bytesWrittenLabel.stringValue = @"0";
     self.totalBytesLabel.stringValue = @"0";
+    self.totalBytesWritten = 0;
 }
 
 - (IBAction)buttonPressed:(id)sender {
-    int megabytes = [self.sizeTextField.title intValue];
+    int megabytes = self.sizeTextField.intValue;
     ssize_t target = megabytes * 1024 * 1024;
+    int blocksize_kb = self.chunkSizeTextField.intValue;
+    NSLog(@"block size in KiB: %d", blocksize_kb);
+    ssize_t maxblocksize = blocksize_kb * 1024;
+    NSLog(@"Chunk size: %zd bytes", maxblocksize);
     [self.progressIndicator setDoubleValue:0];
     self.progressIndicator.hidden = NO;
     self.progressIndicator.maxValue = target;
@@ -39,7 +48,6 @@
     NSLog(@"Button pressed: megabytes: %d; target: %zd", megabytes, target);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ssize_t written = 0;
-        ssize_t maxblocksize = 128*1024;
         void* buffer = malloc(target);
         if (buffer == NULL) {
             [NSAlert alertWithMessageText:@"Failed to allocate memory" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"strerror says: %@", [NSString stringWithCString:strerror(errno) encoding:NSUTF8StringEncoding]];
@@ -63,7 +71,7 @@
                 blocksize = target - written;
             }
             ssize_t c = read(urandom, buffer+written, blocksize);
-            //NSLog(@"Wrote %zd bytes", written);
+            //NSLog(@"Read %zd bytes", blocksize);
             if (c == -1) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [NSAlert alertWithMessageText:@"Failed to read /dev/urandom" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"strerror says: %@", [NSString stringWithCString:strerror(errno) encoding:NSUTF8StringEncoding]];
@@ -73,8 +81,9 @@
                 written += c;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.progressIndicator incrementBy:c];
+                    self.totalBytesWritten += c;
                     self.bytesWrittenLabel.stringValue = [NSString stringWithFormat:@"%zd", written];
-                    self.totalBytesLabel.stringValue = [NSString stringWithFormat:@"%ld", self.totalBytesLabel.intValue + c];
+                    self.totalBytesLabel.stringValue = [NSString stringWithFormat:@"%zd", self.totalBytesWritten];
                 });
             }
         }
