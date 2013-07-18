@@ -7,6 +7,7 @@
 //
 
 #import "DLLAppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation DLLAppDelegate
 
@@ -16,7 +17,7 @@
     self.chunkSizeTextField.stringValue = @"1024";
     self.sizeTextField.stringValue = @"100";
     self.totalBytesWritten = 0;
-    
+    self.progressIndicator.layer.opacity = 0;
 }
 - (IBAction)freeAllButtonPressed:(id)sender {
     NSLog(@"mallocs size before free: %ld", (unsigned long)[self.mallocs count]);
@@ -34,6 +35,27 @@
     self.totalBytesWritten = 0;
 }
 
+- (void)startFade:(BOOL) fadeIn {
+    CABasicAnimation* a = [CABasicAnimation animation];
+    
+    a.keyPath = @"opacity";
+    if (fadeIn) {
+        a.fromValue = [NSNumber numberWithFloat:0];
+        a.toValue = [NSNumber numberWithFloat:1];
+    } else {
+        a.fromValue = [NSNumber numberWithFloat:1];
+        a.toValue = [NSNumber numberWithFloat:0];
+    }
+    a.duration = fadeIn ? 2.0 : 0.5;
+    a.repeatCount = 0;
+    a.autoreverses = NO;
+    a.timingFunction = [CAMediaTimingFunction
+                        functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    
+    [self.progressIndicator.layer addAnimation:a forKey:fadeIn ? @"fadeIn" : @"fadeOut"];
+    self.progressIndicator.layer.opacity = fadeIn ? 1.0 : 0.0;
+}
+
 - (IBAction)buttonPressed:(id)sender {
     int megabytes = self.sizeTextField.intValue;
     ssize_t target = megabytes * 1024 * 1024;
@@ -42,8 +64,8 @@
     ssize_t maxblocksize = blocksize_kb * 1024;
     NSLog(@"Chunk size: %zd bytes", maxblocksize);
     [self.progressIndicator setDoubleValue:0];
-    self.progressIndicator.hidden = NO;
     self.progressIndicator.maxValue = target;
+    [self startFade:YES];
     self.startButton.enabled = NO;
     NSLog(@"Button pressed: megabytes: %d; target: %zd", megabytes, target);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -87,14 +109,13 @@
                 });
             }
         }
-        NSLog(@"Done writing (target bytes: %zd", written);
+        NSLog(@"Done writing (target bytes: %zd)", written);
         close(urandom);
     cleanup:
         NSLog(@"Cleanup");
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.progressIndicator.hidden = YES;
             self.startButton.enabled = YES;
-            
+            [self startFade:NO];            
         });
     });
 }

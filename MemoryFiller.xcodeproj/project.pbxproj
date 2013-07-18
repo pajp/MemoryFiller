@@ -13,6 +13,7 @@
 		3A4A6B3717952E2200C56DAB /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4A6B3517952E2200C56DAB /* Credits.rtf */; };
 		3A4A6B3A17952E2200C56DAB /* DLLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A6B3917952E2200C56DAB /* DLLAppDelegate.m */; };
 		3A4A6B3D17952E2200C56DAB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A4A6B3B17952E2200C56DAB /* MainMenu.xib */; };
+		3A4A6B451797E8F700C56DAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4A6B441797E8F700C56DAB /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		3A4A6B3917952E2200C56DAB /* DLLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLLAppDelegate.m; sourceTree = "<group>"; };
 		3A4A6B3C17952E2200C56DAB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3A4A6B4317954B7900C56DAB /* MemoryFiller.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MemoryFiller.entitlements; sourceTree = "<group>"; };
+		3A4A6B441797E8F700C56DAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4A6B451797E8F700C56DAB /* QuartzCore.framework in Frameworks */,
 				3A4A6B2717952E2200C56DAB /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -47,6 +50,7 @@
 		3A4A6B1A17952E2200C56DAB = {
 			isa = PBXGroup;
 			children = (
+				3A4A6B441797E8F700C56DAB /* QuartzCore.framework */,
 				3A4A6B2C17952E2200C56DAB /* MemoryFiller */,
 				3A4A6B2517952E2200C56DAB /* Frameworks */,
 				3A4A6B2417952E2200C56DAB /* Products */,
