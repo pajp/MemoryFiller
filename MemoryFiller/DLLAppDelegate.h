@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface DLLAppDelegate : NSObject <NSApplicationDelegate>
+@interface DLLAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 - (IBAction)buttonPressed:(id)sender;

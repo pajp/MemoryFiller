@@ -18,7 +18,29 @@
     self.sizeTextField.stringValue = @"100";
     self.totalBytesWritten = 0;
     self.progressIndicator.layer.opacity = 0;
+    self.window.delegate = self;
+    [self.window setAlphaValue:0.0];
+    [self fadeInWindow];
+
 }
+
+- (void) windowWillClose:(NSNotification *)notification
+{
+    [[NSApplication sharedApplication] terminate:self];
+}
+
+- (void) fadeInWindow
+{
+    if (self.window.alphaValue < 1.0) {
+        double delayInSeconds = 0.05;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.window setAlphaValue:self.window.alphaValue + 0.05];
+            [self fadeInWindow];
+        });
+    }
+}
+
 - (IBAction)freeAllButtonPressed:(id)sender {
     NSLog(@"mallocs size before free: %ld", (unsigned long)[self.mallocs count]);
     for (int i=0; i < [self.mallocs count]; i++)
