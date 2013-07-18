@@ -107,6 +107,7 @@
             goto cleanup;
         }
         NSLog(@"Open /dev/urandom with fd %d", urandom);
+        double starttime_global = [NSDate timeIntervalSinceReferenceDate];
         while (written < target) {
             ssize_t blocksize;
             if (target - written > maxblocksize) {
@@ -114,7 +115,9 @@
             } else {
                 blocksize = target - written;
             }
+            double starttime = [NSDate timeIntervalSinceReferenceDate];
             ssize_t c = read(urandom, buffer+written, blocksize);
+            double stoptime = [NSDate timeIntervalSinceReferenceDate];
             //NSLog(@"Read %zd bytes", blocksize);
             if (c == -1) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -128,16 +131,23 @@
                     self.totalBytesWritten += c;
                     self.bytesWrittenLabel.stringValue = [NSString stringWithFormat:@"%zd", written];
                     self.totalBytesLabel.stringValue = [NSString stringWithFormat:@"%zd", self.totalBytesWritten];
+                    if (written == target) {
+                        // average for whole buffer
+                        NSLog(@"Done writing (target bytes: %zd, %f MiB per second)", written, (written/1024/1024) / (stoptime - starttime_global));
+                        self.bandwidthLabel.stringValue = [NSString stringWithFormat:@"%.2f MiB/sec", (written/1024/1024) / (stoptime - starttime_global)];
+                    } else {
+                        // average for this chunk
+                        self.bandwidthLabel.stringValue = [NSString stringWithFormat:@"%.6f MiB/sec", (((double)c)/1024.0/1024.0) / (stoptime - starttime)];
+                    }
                 });
             }
         }
-        NSLog(@"Done writing (target bytes: %zd)", written);
         close(urandom);
     cleanup:
         NSLog(@"Cleanup");
         dispatch_async(dispatch_get_main_queue(), ^{
             self.startButton.enabled = YES;
-            [self startFade:NO];            
+            [self startFade:NO];
         });
     });
 }
