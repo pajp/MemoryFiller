@@ -89,7 +89,7 @@
     self.startButton.enabled = NO;
     long fillMethod = self.fillTypeBox.indexOfSelectedItem;
     NSLog(@"Fill method: %ld", fillMethod);
-    NSLog(@"Button pressed: megabytes: %d; target: %zd", megabytes, target);
+    NSLog(@"Button pressed: megabytes: %zd; target: %zd", megabytes, target);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         size_t written = 0;
         void* buffer = malloc(target);
