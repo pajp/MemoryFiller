@@ -19,6 +19,7 @@
     self.totalBytesWritten = 0;
     self.progressIndicator.layer.opacity = 0;
     self.window.delegate = self;
+    [self.fillTypeBox selectItemAtIndex:0];
     [self.window setAlphaValue:0.0];
     [self fadeInWindow];
 
@@ -76,44 +77,57 @@
 }
 
 - (IBAction)buttonPressed:(id)sender {
-    int megabytes = self.sizeTextField.intValue;
-    ssize_t target = megabytes * 1024 * 1024;
+    size_t megabytes = (size_t) self.sizeTextField.intValue;
+    size_t target = megabytes * 1024 * 1024;
     int blocksize_kb = self.chunkSizeTextField.intValue;
     NSLog(@"block size in KiB: %d", blocksize_kb);
-    ssize_t maxblocksize = blocksize_kb * 1024;
+    size_t maxblocksize = blocksize_kb * 1024;
     NSLog(@"Chunk size: %zd bytes", maxblocksize);
     [self.progressIndicator setDoubleValue:0];
     self.progressIndicator.maxValue = target;
     [self startFade:YES];
     self.startButton.enabled = NO;
+    long fillMethod = self.fillTypeBox.indexOfSelectedItem;
+    NSLog(@"Fill method: %ld", fillMethod);
     NSLog(@"Button pressed: megabytes: %d; target: %zd", megabytes, target);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        ssize_t written = 0;
+        size_t written = 0;
         void* buffer = malloc(target);
         if (buffer == NULL) {
             [NSAlert alertWithMessageText:@"Failed to allocate memory" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"strerror says: %@", [NSString stringWithCString:strerror(errno) encoding:NSUTF8StringEncoding]];
             goto cleanup;
         }
         [self.mallocs addPointer:buffer];
-        int urandom = open("/dev/urandom", O_RDONLY);
-        if (urandom == -1) {
-            NSLog(@"failed to open /dev/urandom (errno: %d", errno);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [NSAlert alertWithMessageText:@"Failed to open /dev/urandom" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"strerror says: %@", [NSString stringWithCString:strerror(errno) encoding:NSUTF8StringEncoding]];
-            });
-            goto cleanup;
+        int urandom = -1;
+        if (fillMethod == 0 || fillMethod == 1) {
+            char* file = fillMethod == 0 ? "/dev/urandom" : "/dev/zero";
+            urandom = open(file, O_RDONLY);
+            if (urandom == -1) {
+                NSLog(@"failed to open %s (errno: %d)", file, errno);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [NSAlert alertWithMessageText:@"Failed to open /dev/urandom" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"strerror says: %@", [NSString stringWithCString:strerror(errno) encoding:NSUTF8StringEncoding]];
+                });
+                goto cleanup;
+            }
+            NSLog(@"Opened %s with fd %d", file, urandom);
         }
-        NSLog(@"Open /dev/urandom with fd %d", urandom);
         double starttime_global = [NSDate timeIntervalSinceReferenceDate];
         while (written < target) {
-            ssize_t blocksize;
+            size_t blocksize;
             if (target - written > maxblocksize) {
                 blocksize = maxblocksize;
             } else {
                 blocksize = target - written;
             }
             double starttime = [NSDate timeIntervalSinceReferenceDate];
-            ssize_t c = read(urandom, buffer+written, blocksize);
+            size_t c;
+            if (urandom > -1) {
+                c = read(urandom, buffer+written, blocksize);
+            } else {
+                memset(buffer+written, 0, blocksize);
+                c = blocksize;
+            }
+
             double stoptime = [NSDate timeIntervalSinceReferenceDate];
             //NSLog(@"Read %zd bytes", blocksize);
             if (c == -1) {
@@ -148,7 +162,9 @@
                 });
             }
         }
-        close(urandom);
+        if (urandom > -1) {
+            close(urandom);
+        }
     cleanup:
         NSLog(@"Cleanup");
         dispatch_async(dispatch_get_main_queue(), ^{
