@@ -147,7 +147,7 @@
                     double bytesPerSecondTotal = written / (stoptime - starttime_global);
                     double estimatedTimeTotal = target / bytesPerSecondTotal;
                     double estimatedTimeRemaining = estimatedTimeTotal - secondsSinceStart;
-                    if (estimatedTimeRemaining < 1.5) {
+                    if (estimatedTimeRemaining < 1.5 && ((double)written / (double)target) >= 0.8) {
                         [self startFade:NO];
                     }
                     //NSLog(@"%.2f seconds remaining (out of %.2f)", estimatedTimeRemaining, estimatedTimeTotal);
