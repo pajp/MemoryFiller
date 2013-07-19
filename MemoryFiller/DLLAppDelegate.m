@@ -19,6 +19,7 @@
     self.totalBytesWritten = 0;
     self.progressIndicator.layer.opacity = 0;
     self.window.delegate = self;
+    self.cancel = NO;
     [self.fillTypeBox selectItemAtIndex:0];
     [self.window setAlphaValue:0.0];
     [self fadeInWindow];
@@ -77,6 +78,10 @@
 }
 
 - (IBAction)buttonPressed:(id)sender {
+    if ([self.startButton.title isEqualToString:@"Cancel"]) {
+        self.cancel = YES;
+        return;
+    }
     size_t megabytes = (size_t) self.sizeTextField.intValue;
     size_t target = megabytes * 1024 * 1024;
     int blocksize_kb = self.chunkSizeTextField.intValue;
@@ -86,7 +91,7 @@
     [self.progressIndicator setDoubleValue:0];
     self.progressIndicator.maxValue = target;
     [self startFade:YES];
-    self.startButton.enabled = NO;
+    self.startButton.title = @"Cancel";
     long fillMethod = self.fillTypeBox.indexOfSelectedItem;
     NSLog(@"Fill method: %ld", fillMethod);
     NSLog(@"Button pressed: megabytes: %zd; target: %zd", megabytes, target);
@@ -112,7 +117,7 @@
             NSLog(@"Opened %s with fd %d", file, urandom);
         }
         double starttime_global = [NSDate timeIntervalSinceReferenceDate];
-        while (written < target) {
+        while (written < target && !self.cancel) {
             size_t blocksize;
             if (target - written > maxblocksize) {
                 blocksize = maxblocksize;
@@ -168,7 +173,8 @@
     cleanup:
         NSLog(@"Cleanup");
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.startButton.enabled = YES;
+            self.startButton.title = @"Allocate";
+            self.cancel = NO;
             [self startFade:NO];
         });
     });

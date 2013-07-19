@@ -23,4 +23,5 @@
 
 @property (strong) NSPointerArray *mallocs;
 @property ssize_t totalBytesWritten;
+@property BOOL cancel;
 @end
