@@ -51,6 +51,12 @@
 }
 
 - (void)startFade:(BOOL) fadeIn {
+    if ([self.progressIndicator.layer.animationKeys containsObject:fadeIn ? @"fadeIn" : @"fadeOut"]) {
+        return;
+    }
+    if (self.progressIndicator.layer.opacity == fadeIn ? 1.0 : 0.0) {
+        return;
+    }
     CABasicAnimation* a = [CABasicAnimation animation];
     
     a.keyPath = @"opacity";
@@ -61,11 +67,9 @@
         a.fromValue = [NSNumber numberWithFloat:1];
         a.toValue = [NSNumber numberWithFloat:0];
     }
-    a.duration = fadeIn ? 2.0 : 0.5;
-    a.repeatCount = 0;
-    a.autoreverses = NO;
+    a.duration = 2.0;
     a.timingFunction = [CAMediaTimingFunction
-                        functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                        functionWithName:kCAMediaTimingFunctionLinear];
     
     [self.progressIndicator.layer addAnimation:a forKey:fadeIn ? @"fadeIn" : @"fadeOut"];
     self.progressIndicator.layer.opacity = fadeIn ? 1.0 : 0.0;
@@ -124,13 +128,22 @@
                     self.totalBytesWritten += c;
                     self.bytesWrittenLabel.stringValue = [NSString stringWithFormat:@"%zd", written];
                     self.totalBytesLabel.stringValue = [NSString stringWithFormat:@"%zd", self.totalBytesWritten];
+                    double secondsSinceStart = (stoptime - starttime_global);
+                    double bytesPerSecondChunk = c / (stoptime - starttime);
+                    double bytesPerSecondTotal = written / (stoptime - starttime_global);
+                    double estimatedTimeTotal = target / bytesPerSecondTotal;
+                    double estimatedTimeRemaining = estimatedTimeTotal - secondsSinceStart;
+                    if (estimatedTimeRemaining < 1.5) {
+                        [self startFade:NO];
+                    }
+                    //NSLog(@"%.2f seconds remaining (out of %.2f)", estimatedTimeRemaining, estimatedTimeTotal);
                     if (written == target) {
                         // average for whole buffer
-                        NSLog(@"Done writing (target bytes: %zd, %f MiB per second)", written, (written/1024/1024) / (stoptime - starttime_global));
-                        self.bandwidthLabel.stringValue = [NSString stringWithFormat:@"%.2f MiB/sec", (written/1024/1024) / (stoptime - starttime_global)];
+                        NSLog(@"Done writing (target bytes: %zd, %f MiB per second)", written, (bytesPerSecondTotal/1024/1024));
+                        self.bandwidthLabel.stringValue = [NSString stringWithFormat:@"%.2f MiB/sec", (bytesPerSecondTotal/1024/1024)];
                     } else {
                         // average for this chunk
-                        self.bandwidthLabel.stringValue = [NSString stringWithFormat:@"%.6f MiB/sec", (((double)c)/1024.0/1024.0) / (stoptime - starttime)];
+                        self.bandwidthLabel.stringValue = [NSString stringWithFormat:@"%.3f MiB/sec (%.1f seconds remain)", (((double)bytesPerSecondChunk)/1024.0/1024.0), estimatedTimeRemaining];
                     }
                 });
             }
@@ -143,8 +156,5 @@
             [self startFade:NO];
         });
     });
-}
-- (IBAction)otherViewButton:(id)sender {
-    [self.mainView.layer replaceSublayer:self.mainView.layer with:self.otherView.layer];
 }
 @end
