@@ -270,7 +270,6 @@
 		3A4A6B4117952E2200C56DAB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = MemoryFiller/MemoryFiller.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -284,8 +283,7 @@
 		3A4A6B4217952E2200C56DAB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = MemoryFiller/MemoryFiller.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Rasmus Sten";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MemoryFiller/MemoryFiller-Prefix.pch";
@@ -315,6 +313,7 @@
 				3A4A6B4217952E2200C56DAB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
